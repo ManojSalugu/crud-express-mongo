@@ -2,11 +2,16 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const dotenv = require('dotenv')
+
+
+dotenv.config()
+const db_string = process.env.DATABASE_CONNECTION_STRING
 
 var db
 
 // Remember to change YOUR_USERNAME and YOUR_PASSWORD to your username and password! 
-MongoClient.connect('mongodb+srv://crudexpressmongo:crudexpressmongo@cluster0.lk1eh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', (err, database) => {
+MongoClient.connect(db_string, (err, database) => {
   if (err) return console.log(err)
   db = database.db('star-wars-quotes')
   app.listen(process.env.PORT || 3000, () => {
